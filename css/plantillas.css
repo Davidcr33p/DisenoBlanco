@@ -1,0 +1,180 @@
+/* ============================================================
+   Selector de plantillas - pagina utilitaria
+   Reutiliza la piel monocroma de la Plantilla 1.
+   ============================================================ */
+
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../assets/fonts/SpaceGrotesk-latin.woff2") format("woff2");
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body, h1, h2, p { margin: 0; }
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+code {
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  background: var(--paper-alt);
+  padding: 0.1rem 0.4rem;
+  font-size: 0.9em;
+}
+
+:root {
+  --paper: #fafafa;
+  --paper-alt: #f1f1ef;
+  --surface: #ffffff;
+  --ink: #141414;
+  --ink-soft: #59595a;
+  --ink-faint: #8b8b8b;
+  --line: #e0dfdc;
+  --line-strong: #c9c8c5;
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  --container-max: 1200px;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2 { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.01em; line-height: 1.1; color: var(--ink); }
+
+p { color: var(--ink-soft); }
+
+.icon { width: 1em; height: 1em; flex-shrink: 0; }
+
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--ink-soft);
+  margin-bottom: 0.85rem;
+}
+
+/* ---------- Header ---------- */
+.picker-header {
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+.picker-header-inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: 1.25rem var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.brand { display: flex; align-items: center; gap: 0.75rem; }
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+.brand-name { font-family: var(--font-display); font-weight: 500; font-size: 1rem; }
+.picker-tag {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ink-faint);
+}
+
+/* ---------- Intro ---------- */
+.picker-main {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: clamp(3rem, 8vw, 5.5rem) var(--gutter) clamp(4rem, 8vw, 6rem);
+}
+.picker-intro { max-width: 62ch; margin-bottom: clamp(2.5rem, 6vw, 4rem); }
+.picker-intro h1 { font-size: clamp(2rem, 4.5vw, 3rem); margin-bottom: 1.25rem; }
+.picker-lede { font-size: 1.02rem; max-width: 60ch; }
+
+/* ---------- Grid de tarjetas ---------- */
+.picker-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+@media (min-width: 800px) {
+  .picker-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.picker-card {
+  display: block;
+  padding: clamp(1.75rem, 3vw, 2.25rem);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  transition: border-color 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.picker-card:hover { border-color: var(--ink); transform: translateY(-2px); }
+.picker-card:active { transform: translateY(0); }
+
+.picker-swatches { display: flex; gap: 0.4rem; margin-bottom: 1.25rem; }
+.swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.picker-number {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ink-faint);
+  margin-bottom: 0.5rem;
+}
+.picker-card h2 { font-size: 1.4rem; margin-bottom: 0.75rem; }
+.picker-card p { font-size: 0.95rem; max-width: 48ch; margin-bottom: 1.5rem; }
+
+.picker-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 0.92rem;
+  color: var(--ink);
+}
+.picker-link .icon { transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+.picker-card:hover .picker-link .icon { transform: translateX(3px); }
+
+/* ---------- Footer ---------- */
+.picker-footer {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: 0 var(--gutter) clamp(3rem, 6vw, 4rem);
+  border-top: 1px solid var(--line);
+  padding-top: 1.75rem;
+}
+.picker-footer p { font-size: 0.85rem; color: var(--ink-faint); }
+
+/* ---------- Focus visibility ---------- */
+a:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}

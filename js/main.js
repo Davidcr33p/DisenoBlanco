@@ -6,6 +6,12 @@
 (function () {
   "use strict";
 
+  // main.js se comparte entre index.html (raiz) y templates/plantilla-N/,
+  // asi que las rutas de assets en data.js se resuelven contra la carpeta
+  // real donde vive este script, no contra la pagina que lo incluye.
+  const ASSET_BASE = document.currentScript.src.replace(/js\/main\.js(?:[?#].*)?$/, "");
+  const resolveAsset = (path) => (/^(https?:)?\/\//.test(path) ? path : ASSET_BASE + path);
+
   const ICONS = {
     phone: '<svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-24.71c.2-.25.39-.5.57-.77a16,16,0,0,0,1.32-15.06l0-.12L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46ZM176,208A128.14,128.14,0,0,1,48,80,40.2,40.2,0,0,1,82.87,40a.61.61,0,0,0,0,.12l21,47L83.2,111.86a6.13,6.13,0,0,0-.57.77,16,16,0,0,0-1,15.7c9.06,18.53,27.73,37.06,46.46,46.11a16,16,0,0,0,15.75-1.14,8.44,8.44,0,0,0,.74-.56L168.89,152l47,21.05h0s.08,0,.11,0A40.21,40.21,0,0,1,176,208Z"/></svg>',
     envelope: '<svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></svg>',
@@ -53,7 +59,7 @@
     document.getElementById("hero-title").textContent = c.tagline;
     document.getElementById("hero-subtext").textContent = c.heroSubtext;
     const img = document.getElementById("hero-image");
-    img.src = c.heroImage;
+    img.src = resolveAsset(c.heroImage);
     img.alt = `Fotografia de un proyecto de ${c.name}`;
   }
 
@@ -63,7 +69,7 @@
     document.getElementById("about-title").textContent = c.aboutTitle;
     document.getElementById("about-text").textContent = c.aboutText;
     const img = document.getElementById("about-image");
-    img.src = c.aboutImage;
+    img.src = resolveAsset(c.aboutImage);
     img.alt = `Equipo y espacio de trabajo de ${c.name}`;
   }
 
@@ -125,7 +131,7 @@
         const aspect = p.size === "tall" ? "3 / 4" : p.size === "wide" ? "4 / 3" : "1 / 1";
         return `
         <figure class="masonry-item" data-category="${p.category}" data-index="${i}" tabindex="0" role="button" aria-label="Ver proyecto ${p.title}">
-          <img src="${p.image}" alt="${p.title}, ${p.category} en ${p.location}" style="aspect-ratio:${aspect}; object-fit:cover;" loading="lazy" />
+          <img src="${resolveAsset(p.image)}" alt="${p.title}, ${p.category} en ${p.location}" style="aspect-ratio:${aspect}; object-fit:cover;" loading="lazy" />
           <figcaption class="masonry-caption">
             <span class="title">${p.title}</span>
             <span class="meta">${p.category} - ${p.location}</span>
@@ -164,7 +170,7 @@
     document.getElementById("featured-description").textContent = f.description;
     document.getElementById("featured-meta").textContent = `${f.location}, ${f.year}`;
     const img = document.getElementById("featured-image");
-    img.src = f.image;
+    img.src = resolveAsset(f.image);
     img.alt = `${f.title}, ${f.location}`;
   }
 
@@ -303,7 +309,7 @@
   function updateLightboxContent() {
     const project = SITE_DATA.projects[state.lightboxIndex];
     const img = document.getElementById("lightbox-image");
-    img.src = project.image;
+    img.src = resolveAsset(project.image);
     img.alt = `${project.title}, ${project.category} en ${project.location}`;
     document.getElementById("lightbox-caption").innerHTML = `
       <strong>${project.title}</strong>
